@@ -1,4 +1,4 @@
-## Live :https://booking-crm-front.vercel.app/login
+## Live :booking-crm-front.vercel.app
 
 # Frontend – React.js Application
 
