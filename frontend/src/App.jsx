@@ -17,7 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Toaster } from 'react-hot-toast';
 
 
-export const backendUrl = 'http://localhost:3000/'
+export const backendUrl = 'https://booking-crm-backend.vercel.app/'
 import BookingHistory from './components/BookingHistory';
 import { io } from "socket.io-client";
 import axios from "axios";
