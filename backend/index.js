@@ -18,7 +18,7 @@ const server = createServer(app); // ✅ create HTTP server
 
 // Setup WebSocket (socket.io) server
 const io = new Server(server, {
-  cors: { origin: "http://localhost:5173", methods: ["GET", "POST"] }
+  cors: { origin: ["http://localhost:5173","https://booking-crm-front.vercel.app/login"], methods: ["GET", "POST"] }
 });
 
 // Connect MongoDB
@@ -60,3 +60,4 @@ io.on('connection', (socket) => {
     console.log("❌ Client disconnected:", socket.id);
   });
 });
+
