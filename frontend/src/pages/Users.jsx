@@ -224,14 +224,15 @@ if (error.response) {
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  User
+                
+                <th className="px-6 py-3  text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Email
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Role
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
+                  Name
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Created
@@ -265,14 +266,14 @@ if (error.response) {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getRoleColor(user.role)}`}>
-                        <RoleIcon size={12} className="mr-1" />
+                        
                         {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <button
                         onClick={() => toggleUserStatus(user.id)}
-                        className={`inline-flex px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(user.status)}`}
+                        className={`inline-flex px-2 py-1 rounded-full text-xs font-medium `}
                       >
        {user.username}
                       </button>

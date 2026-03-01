@@ -3,12 +3,39 @@ import { useAuth } from '../contexts/AuthContext';
 import { Calendar, Users, CheckCircle, Clock, TrendingUp } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import StarklyAIChatWidget from '../chatbot/StarklyAIChatWidget'
+import socket from '../socket/socket';
 
 const Dashboard = () => {
   const { getBookingStats } = useBookings();
   const { isAdmin } = useAuth();
   const stats = getBookingStats();
- 
+
+
+  
+ useEffect(() => {
+
+    if (isAdmin()) {
+
+      // 👑 Connect socket
+      socket.connect();
+
+      // 👑 Join admin room
+      socket.emit("join-admin-room");
+
+      // 👑 Listen for booking notifications
+      socket.on("notification-booking", (data) => {
+        console.log("New Booking:", data);
+        alert(data.message);
+      });
+
+    }
+
+    return () => {
+      socket.off("notification-booking");
+      socket.disconnect();
+    };
+
+  }, []);
 
   const statCards = [
     {
