@@ -40,7 +40,7 @@ connectDB();
 // Middlewares
 app.use(
   cors({
-    origin: "https://booking-crm-backend.vercel.app/user/login",
+    origin: "https://booking-crm-frontend.vercel.app/login",
     credentials: true,
   })
 );
@@ -75,6 +75,7 @@ io.on('connection', (socket) => {
     console.log("❌ Client disconnected:", socket.id);
   });
 });
+
 
 
 
