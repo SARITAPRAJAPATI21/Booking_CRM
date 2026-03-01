@@ -22,22 +22,32 @@ const app = express();
 const server = createServer(app); // ✅ create HTTP server
 const io = initSocket(server); // 👈 yaha se initialize
 
-<<<<<<< HEAD
-=======
 // Setup WebSocket (socket.io) server
-const io = new Server(server, {
-  cors: { origin: ["http://localhost:5173","https://booking-crm-front.vercel.app/login","https://booking-crm-front.vercel.app"], methods: ["GET", "POST"] }
+const io = initSocket(server, {
+  cors: {
+    origin: [
+      "http://localhost:5173",
+      "https://booking-crm-front.vercel.app"
+    ],
+    methods: ["GET", "POST"]
+  }
 });
->>>>>>> 04a0ebbe6b9cecf230808c6b621038732c469ded
+
 
 // Connect MongoDB
 connectDB();
 
 // Middlewares
 app.use(cors({
-  origin: "https://booking-crm-front.vercel.app/user/login",
+  origin: [
+    "http://localhost:5173",
+    "https://booking-crm-front.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
+
+app.options("*", cors()); // ✅ VERY IMPORTANT for preflight
 
 app.use(express.json());
 
@@ -71,6 +81,7 @@ io.on('connection', (socket) => {
 
 =======
 >>>>>>> 04a0ebbe6b9cecf230808c6b621038732c469ded
+
 
 
 
