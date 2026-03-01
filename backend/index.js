@@ -26,7 +26,7 @@ const io = initSocket(server); // 👈 yaha se initialize
 =======
 // Setup WebSocket (socket.io) server
 const io = new Server(server, {
-  cors: { origin: ["http://localhost:5173","https://booking-crm-front.vercel.app/login"], methods: ["GET", "POST"] }
+  cors: { origin: ["http://localhost:5173","https://booking-crm-front.vercel.app/login","https://booking-crm-front.vercel.app"], methods: ["GET", "POST"] }
 });
 >>>>>>> 04a0ebbe6b9cecf230808c6b621038732c469ded
 
@@ -67,3 +67,4 @@ io.on('connection', (socket) => {
 
 =======
 >>>>>>> 04a0ebbe6b9cecf230808c6b621038732c469ded
+
