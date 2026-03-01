@@ -35,7 +35,7 @@ connectDB();
 
 // Middlewares
 app.use(cors({
-  origin: "https://booking-crm-front.vercel.app",
+  origin: "https://booking-crm-front.vercel.app/user/login",
   credentials: true
 }));
 
@@ -71,5 +71,6 @@ io.on('connection', (socket) => {
 
 =======
 >>>>>>> 04a0ebbe6b9cecf230808c6b621038732c469ded
+
 
 
