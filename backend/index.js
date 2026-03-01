@@ -38,18 +38,17 @@ const io = initSocket(server, {
 connectDB();
 
 // Middlewares
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://booking-crm-front.vercel.app"
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
-
-app.options("*", cors()); // ✅ VERY IMPORTANT for preflight
+app.use(
+  cors({
+    origin: "https://booking-crm-front.vercel.app",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
+
+app.options("*", cors());
+
 
 //Route api endpoint
 
@@ -76,6 +75,7 @@ io.on('connection', (socket) => {
     console.log("❌ Client disconnected:", socket.id);
   });
 });
+
 
 
 
