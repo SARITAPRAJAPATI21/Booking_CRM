@@ -77,10 +77,8 @@ io.on('connection', (socket) => {
   });
 });
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 04a0ebbe6b9cecf230808c6b621038732c469ded
+
 
 
 
