@@ -34,7 +34,11 @@ const io = new Server(server, {
 connectDB();
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+  origin: "https://booking-crm-front.vercel.app",
+  credentials: true
+}));
+
 app.use(express.json());
 
 //Route api endpoint
@@ -67,4 +71,5 @@ io.on('connection', (socket) => {
 
 =======
 >>>>>>> 04a0ebbe6b9cecf230808c6b621038732c469ded
+
 
