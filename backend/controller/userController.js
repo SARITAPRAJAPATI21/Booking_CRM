@@ -5,6 +5,42 @@ import jwt from "jsonwebtoken";
 const JWT_SECRET = 'your_jwt_secret_key';
 
 
+// UPDATE PASSWORD USING EMAIL
+const updatePassword = async (req, res) => {
+  try {
+    const { email, newPassword } = req.body;
+
+    // 1️⃣ Validate input
+    if (!email || !newPassword) {
+      return res.status(400).json({ message: "Email and new password required" });
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({ message: "Password must be at least 6 characters" });
+    }
+
+    // 2️⃣ Check user exists
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // 3️⃣ Hash new password
+    
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    // 4️⃣ Update password
+    user.password = hashedPassword;
+    await user.save();
+
+    res.status(200).json({ message: "Password updated successfully" });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+}
 const register = async (req, res) => {
     console.log("Regisetr user ",req.body)
     const { username, email, password, role } = req.body;
@@ -45,11 +81,11 @@ const login = async (req, res) => {
         // Check if UserModel exists
         const existingUser = await UserModel.findOne({ email });
         console.log("User in database", existingUser)
-        if (!existingUser) return res.status(400).json({ message: 'Invalid email or password' });
+        if (!existingUser) return res.status(401).json({ message: 'Invalid email or password' });
 
         // Compare password
         const isMatch = await bcrypt.compare(password, existingUser.password);
-        if (!isMatch) return res.status(400).json({ message: 'Invalid email or password' });
+        if (!isMatch) return res.status(401).json({ message: 'Invalid email or password' });
 
         // Generate JWT token
         const token = jwt.sign(
@@ -65,9 +101,11 @@ const login = async (req, res) => {
                 id: existingUser._id,
                 name: existingUser.username,
                 email: existingUser.email,
-                role: existingUser.role
+                role: existingUser.role,
+                token: token
             }
         });
+        console.log("login successfull")
 
     } catch (err) {
         console.error('Login error:', err);
@@ -149,4 +187,4 @@ const updateUser= async (req, res) => {
     res.status(400).json({ message: 'Error updating user', error: err.message });
   }
 };
-export { register, login,AllUser ,findUser,deleteUser,updateUser};
+export { register, login,AllUser ,findUser,deleteUser,updateUser,updatePassword};

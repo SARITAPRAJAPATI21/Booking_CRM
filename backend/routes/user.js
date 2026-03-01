@@ -1,6 +1,8 @@
 import expres from 'express'
-import {register,login,AllUser,findUser,deleteUser, updateUser} from '../controller/userController.js';
+import UserModel from '../model/User.js';
+import {register,login,AllUser,findUser,deleteUser, updateUser, updatePassword} from '../controller/userController.js';
 import { authMiddleware,allowRoles } from '../middleware/auth.js';
+import bcrypt from 'bcrypt'
 
 const user= expres.Router();
 
@@ -15,6 +17,10 @@ user.get('/allUser',AllUser)
 user.delete('/remove/:id',deleteUser)
 
 user.put('/edit/:id',updateUser )
+
+// UPDATE PASSWORD USING EMAIL
+user.put("/update-password",updatePassword);
+
 
 
 

@@ -1,6 +1,6 @@
 // models/User.js
 import mongoose from 'mongoose';
-import { productSchema } from './Product.js';
+//import { bookingSchema } from './BookingModel.js';
 
 
 const userSchema = new mongoose.Schema({

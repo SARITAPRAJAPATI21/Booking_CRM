@@ -60,41 +60,47 @@ if (isTokenExpired(token)) {
     setLoading(false);
   }, []);
 
-  const login = async (email, password) => {
-    try {
-      // Mock API call - replace with real API
-      /*const mockUsers = [
-        { id: 1, email: 'admin@demo.com', password: 'admin123', role: 'admin', name: 'Admin User' },
-        { id: 2, email: 'user@demo.com', password: 'user123', role: 'user', name: 'Regular User' }
-      ];
+ const login = async (email, password) => {
+  console.log('login time')
+  try {
+    const res = await axios.post(`${backendUrl}user/login`, {
+      email,
+      password
+    });
 
-      const foundUser = mockUsers.find(u => u.email === email && u.password === password);
-      
-      if (!foundUser) {
-        throw new Error('Invalid credentials');
-      }*/
-       const res = await axios.post(`${backendUrl}user/login`,{email,password})
-       console.log(res)
+    localStorage.setItem("token", res.data.token);
+    setToken(res.data.token);
+   
+    
+    const userData=res.data.UserModel;
+    localStorage.setItem("userData", JSON.stringify(userData));
+    setUser(userData);
 
-      const token = res.data.token;
-      setToken(token)
-      const userData = {
-        id: res.data.UserModel.id
-,
-        email:  res.data.UserModel.email,
-        role:  res.data.UserModel.role,
-        name:  res.data.UserModel.name
-      };
+    return { success: true };
 
-      localStorage.setItem('token', token);
-      localStorage.setItem('userData', JSON.stringify(userData));
-      setUser(userData);
+  } catch (error) {
 
-      return { success: true };
-    } catch (error) {
-      return { success: false, error: error.message };
+    let statusCode = 500;
+    let errorMessage = "Something went wrong";
+
+    if (error.response) {
+      statusCode = error.response.status;
+      errorMessage = error.response.data?.message;
+    } else if (error.request) {
+      errorMessage = "Server not responding";
+    } else {
+      errorMessage = error.message;
     }
-  };
+
+    return {
+      success: false,
+      status: statusCode,
+      error: errorMessage,
+      
+    };
+  }
+};
+
 
   const logout = () => {
     localStorage.removeItem('token');
