@@ -26,4 +26,5 @@ user.put("/update-password",updatePassword);
 
 
 
+
 export default  user;
